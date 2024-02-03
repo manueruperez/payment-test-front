@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="d-flex flex-column vh-100">
     <MainHeader />
-    <router-view />
+    <router-view class="flex-grow-1" />
     <MainFooter />
   </div>
 </template>
