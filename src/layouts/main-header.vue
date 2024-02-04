@@ -3,7 +3,11 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="/">ShopStore</a>
       <div class="d-flex me-3">
-        <button type="button" class="btn btn-primary position-relative">
+        <button
+          @click="buyCart"
+          type="button"
+          class="btn btn-primary position-relative"
+        >
           <i class="bx bx-cart"></i>
           <span
             v-if="cartItemCount > 0"
@@ -21,13 +25,18 @@ import { computed, defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "ProductList",
+  name: "mainHeader",
   setup() {
     const store = useStore();
     const cartItemCount = computed(() => {
       return store.state.cart.length;
     });
     return { cartItemCount };
+  },
+  methods: {
+    buyCart() {
+      this.$router.push("/buy-cart");
+    },
   },
 });
 </script>
