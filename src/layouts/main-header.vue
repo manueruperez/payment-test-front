@@ -6,9 +6,10 @@
         <button type="button" class="btn btn-primary position-relative">
           <i class="bx bx-cart"></i>
           <span
+            v-if="cartItemCount > 0"
             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
           >
-            99+
+            {{ cartItemCount }}
           </span>
         </button>
       </div>
@@ -16,8 +17,17 @@
   </nav>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
+import { useStore } from "vuex";
+
 export default defineComponent({
   name: "ProductList",
+  setup() {
+    const store = useStore();
+    const cartItemCount = computed(() => {
+      return store.state.cart.length;
+    });
+    return { cartItemCount };
+  },
 });
 </script>
