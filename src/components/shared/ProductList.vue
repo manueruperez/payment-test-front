@@ -27,9 +27,8 @@ export default defineComponent({
   components: { NoContent, ProductCard },
   props: {
     productListData: {
-      type: Array as () => ProductModel[],
+      type: Array as () => ProductModel[] | null,
       default: null,
-      required: true,
     },
   },
 });

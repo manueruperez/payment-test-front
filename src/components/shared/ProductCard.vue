@@ -55,7 +55,6 @@ export default defineComponent({
         description: "una excelente filosofia",
         price: 50000,
       } as ProductModel,
-      required: true,
     },
   },
   computed: {
