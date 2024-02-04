@@ -1,13 +1,17 @@
 <template>
   <NoContent message="No hay productos" v-if="!productListData" />
-  <div v-else class="container">
-    <div class="row">
+  <div v-else class="container mb-5">
+    <div class="row justify-content-center">
       <div
         v-for="(product, i) in productListData"
         :key="`product-item-${i}`"
-        class="col-sm-12 col-md-6 col-lg-4 col-xl-3"
+        class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch"
       >
-        <ProductCard :product-data="product" />
+        <ProductCard
+          class="mt-5 w-100"
+          :product-data="product"
+          :cut-description="true"
+        />
       </div>
     </div>
   </div>

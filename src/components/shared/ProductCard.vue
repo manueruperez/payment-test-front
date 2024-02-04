@@ -3,9 +3,17 @@
     <img alt="product image" :src="dynamicImgSrc" />
     <div class="card-body">
       <h5 class="card-title">{{ productData.title }}</h5>
-      <p class="card-text">{{ productData.description }}</p>
+      <p :class="{ 'fixed-height-description': cutDescription }">
+        {{
+          cutDescription
+            ? cutString(productData.description)
+            : productData.description
+        }}
+      </p>
       <div class="d-flex justify-content-between align-items-center">
-        <span class="card-price">{{ productData.price }}</span>
+        <span class="card-price"
+          >${{ productData.price.toLocaleString("es-ES") }}</span
+        >
         <button
           v-if="isInCart"
           class="btn btn-danger"
@@ -32,6 +40,10 @@ import { useStore } from "vuex";
 export default defineComponent({
   name: "ProductCard",
   props: {
+    cutDescription: {
+      type: Boolean,
+      default: false,
+    },
     productData: {
       type: Object as () => ProductModel,
       default: {
@@ -77,5 +89,17 @@ export default defineComponent({
 
     return { updateCartAction, isInCart, addToCart, removeToCart };
   },
+  methods: {
+    cutString(text: string, cut = 80) {
+      return text.substring(0, cut) + "...";
+    },
+  },
 });
 </script>
+<style>
+.fixed-height-description {
+  height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

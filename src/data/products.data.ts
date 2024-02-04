@@ -4,7 +4,7 @@ const data = {
       title: "Virtud",
       description:
         "Consideraban que la virtud era el bien más alto y el único bien en realidad. La justicia, la templanza, la valentía y la sabiduría eran las principales virtudes que promovían, creyendo que la virtud era suficiente para la felicidad.",
-      price: 100,
+      price: 100000,
       id: 1,
       imgUrl: "product1",
     },
@@ -12,7 +12,7 @@ const data = {
       title: "Ataraxia (Imperturbabilidad)",
       description:
         "Buscaban alcanzar un estado de serenidad y paz interior, libre de perturbaciones emocionales, a través de la aceptación de lo que no se puede cambiar y el enfoque en lo que sí está bajo nuestro control.",
-      price: 120,
+      price: 120000,
       id: 2,
       imgUrl: "product2",
     },
@@ -20,7 +20,7 @@ const data = {
       title: "Autosuficiencia (Autarquía)",
       description:
         "Valoraban la independencia y la capacidad de ser autosuficiente, promoviendo la idea de que uno debe encontrar la felicidad dentro de sí mismo y no depender de factores externos.",
-      price: 150,
+      price: 150000,
       id: 3,
       imgUrl: "product3",
     },
@@ -36,7 +36,7 @@ const data = {
       title: "Control de las Pasiones",
       description:
         "Enseñaban que debemos trabajar para controlar nuestras pasiones y deseos, los cuales son la fuente de la infelicidad y el sufrimiento. Creían que al entender la naturaleza de nuestras emociones, podríamos dirigirlas de manera racional y vivir en armonía con el orden natural del mundo.",
-      price: 110,
+      price: 110000,
       id: 5,
       imgUrl: "product5",
     },
