@@ -1,19 +1,16 @@
 <template>
   <div class="home">
-    <ProductCard />
-    <!-- <NoContent message="Holi" /> -->
+    <ProductList />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import NoContent from "@/components/shared/NoContent.vue";
-import ProductCard from "@/components/shared/ProductCard.vue";
+import ProductList from "@/components/shared/ProductList.vue";
 @Options({
   components: {
-    NoContent,
-    ProductCard,
+    ProductList,
   },
 })
 export default class HomeView extends Vue {}
