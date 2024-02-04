@@ -1,17 +1,27 @@
 <template>
   <div class="home">
-    <ProductList />
+    <ProductList :productListData="products" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import { useStore } from "vuex";
 import ProductList from "@/components/shared/ProductList.vue";
 @Options({
   components: {
     ProductList,
   },
 })
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  private store = useStore();
+  get products() {
+    return this.store.getters.products;
+  }
+
+  mounted() {
+    this.store.dispatch("fetchProducts");
+  }
+}
 </script>
