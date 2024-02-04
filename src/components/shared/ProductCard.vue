@@ -3,7 +3,9 @@
     <img alt="product image" :src="dynamicImgSrc" />
     <div class="card-body">
       <h5 class="card-title">{{ productData.title }}</h5>
-      <p :class="{ 'fixed-height-description': cutDescription }">
+      <p
+        :class="`${cutDescription ? 'fixed-height-description' : ''} card-text`"
+      >
         {{
           cutDescription
             ? cutString(productData.description)
@@ -64,8 +66,6 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore();
-
-    // Computed property para verificar si el producto está en el carrito
     const isInCart = computed(() => {
       return store.state.cart.some(
         (product: ProductModel) => product.id === props.productData.id
