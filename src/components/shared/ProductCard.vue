@@ -1,5 +1,3 @@
-import { defineComponent } from "vue";
-
 <template>
   <div class="card" style="width: 18rem">
     <img alt="product image" :src="dynamicImgSrc" />
@@ -8,16 +6,28 @@ import { defineComponent } from "vue";
       <p class="card-text">{{ productData.description }}</p>
       <div class="d-flex justify-content-between align-items-center">
         <span class="card-price">{{ productData.price }}</span>
-        <button class="btn btn-primary" @click="addToCart(productData.id)">
-          +
+        <button
+          v-if="isInCart"
+          class="btn btn-danger"
+          @click="removeToCart(productData)"
+        >
+          <i class="bx bx-minus"></i>
+        </button>
+        <button
+          v-if="!isInCart"
+          class="btn btn-primary"
+          @click="addToCart(productData)"
+        >
+          <i class="bx bx-plus"></i>
         </button>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { ProductModel } from "@/models/product.models";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "ProductCard",
@@ -40,11 +50,32 @@ export default defineComponent({
       return require(`@/assets/products-imgs/${this.productData.imgUrl}.webp`).toString();
     },
   },
-  methods: {
-    addToCart(idProduct: number) {
-      // To do add to store
-      console.log("add to cart", idProduct);
-    },
+  setup(props) {
+    const store = useStore();
+
+    // Computed property para verificar si el producto está en el carrito
+    const isInCart = computed(() => {
+      return store.state.cart.some(
+        (product: ProductModel) => product.id === props.productData.id
+      );
+    });
+
+    const updateCartAction = (
+      product: ProductModel,
+      type: "add" | "remove"
+    ) => {
+      store.dispatch("updateCart", { product, type });
+    };
+
+    const addToCart = (product: ProductModel) => {
+      updateCartAction(product, "add");
+    };
+
+    const removeToCart = (product: ProductModel) => {
+      updateCartAction(product, "remove");
+    };
+
+    return { updateCartAction, isInCart, addToCart, removeToCart };
   },
 });
 </script>

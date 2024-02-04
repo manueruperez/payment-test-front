@@ -26,7 +26,7 @@ export default createStore({
         state.cart.push(product);
       }
     },
-    removeProductToCart(state: State, productId: number) {
+    removeProductFromCart(state: State, productId: number) {
       const productIndex = state.cart.findIndex((p) => p.id === productId);
       if (productIndex !== -1) {
         state.cart.splice(productIndex, 1);
