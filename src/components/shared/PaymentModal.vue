@@ -20,7 +20,9 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">
+            Pago de productos
+          </h5>
           <button
             type="button"
             class="btn-close"
@@ -31,16 +33,6 @@
         <div class="modal-body">
           <PaymentStepper @close="handleClose" />
         </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Close
-          </button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div>
       </div>
     </div>
   </div>
@@ -48,6 +40,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PaymentStepper from "./PaymentStepper.vue";
+// import { Modal } from 'bootstrap';
 
 export default defineComponent({
   name: "BuyCarrtView",
@@ -56,15 +49,16 @@ export default defineComponent({
   },
   methods: {
     handleClose() {
-      // Usando la API de Bootstrap para cerrar el modal
-      const modalElement = document.getElementById("staticBackdrop");
-      if (modalElement) {
-        // eslint-disable-next-line no-undef
-        const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtiene la instancia del modal
-        if (modalInstance) {
-          modalInstance.hide(); // Cierra el modal
-        }
-      }
+      // const modalEl = document.getElementById('staticBackdrop');
+      // if (modalEl) {
+      //   const modalInstance = Modal.getInstance(modalEl);
+      //   if (modalInstance) {
+      //     modalInstance.hide();
+      //   } else {
+      //     const modal = new Modal(modalEl);
+      //     modal.hide();
+      //   }
+      // }
     },
   },
 });

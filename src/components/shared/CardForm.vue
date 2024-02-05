@@ -109,7 +109,7 @@ export default defineComponent({
           trigger: "blur",
         },
         {
-          validator: (rule: any, value: any, callback) => {
+          validator: (rule: any, value: any, callback: any) => {
             const regex = /^\d{13,19}$/;
 
             if (!regex.test(value)) {
@@ -128,7 +128,7 @@ export default defineComponent({
           trigger: "blur",
         },
         {
-          validator: (rule: any, value: any, callback) => {
+          validator: (rule: any, value: any, callback: any) => {
             const regex = /^\d{3}$/;
 
             if (!regex.test(value)) {
@@ -147,7 +147,7 @@ export default defineComponent({
           trigger: "blur",
         },
         {
-          validator: (rule: any, value: any, callback) => {
+          validator: (rule: any, value: any, callback: any) => {
             const regex = /^\d{4}$/;
             const currentYear = new Date().getFullYear();
 
@@ -173,7 +173,7 @@ export default defineComponent({
           trigger: "blur",
         },
         {
-          validator: (rule: any, value: any, callback) => {
+          validator: (rule: any, value: any, callback: any) => {
             const regex = /^\d{1,2}$/;
             const currentMonth = new Date().getMonth() + 1;
             const currentYear = new Date().getFullYear();
