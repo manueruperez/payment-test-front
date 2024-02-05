@@ -20,23 +20,24 @@
         <PurchaseResult
           v-if="active === 2"
           @continue="handlePurchaseResult"
-          :isSuccess="true"
+          :isSuccess="paymentResult"
         />
       </div>
     </transition>
-    <button type="button" class="btn btn-primary mt-3" @click="next">
+    <!-- <button type="button" class="btn btn-primary mt-3" @click="next">
       Continuar
-    </button>
+    </button> -->
   </div>
   <el-loading></el-loading>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, Ref, ref } from "vue";
 import CardForm from "./CardForm.vue";
 import PurchaseSummary from "./PurchaseSummary.vue";
 import PurchaseResult from "./PurchaseResult.vue";
 import { ElLoading } from "element-plus";
+import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -45,8 +46,10 @@ export default defineComponent({
     ElLoading,
     PurchaseResult,
   },
-  setup() {
+  setup(prop, { emit }) {
+    const store = useStore();
     const active = ref(0);
+    let paymentResult = ref(false);
     const fullscreenLoading = ref(false);
 
     let showNextButton = false;
@@ -62,20 +65,32 @@ export default defineComponent({
       next();
     };
 
-    const handlePurchaseSummaryStep = (data: any) => {
-      next();
-      openFullScreen1();
+    const handlePurchaseSummaryStep = async (data: any) => {
+      try {
+        paymentResult.value = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (cardData && cardData.endsWith("1")) {
+              reject(false);
+            } else {
+              store.dispatch("clearCart");
+              resolve(true);
+            }
+          }, 2000);
+        });
+      } catch (error) {
+        paymentResult.value = false;
+      } finally {
+        fullscreenLoading.value = false;
+        next();
+      }
     };
 
     const handlePurchaseResult = (data: any) => {
-      console.log(data);
-    };
-
-    const openFullScreen1 = () => {
-      fullscreenLoading.value = true;
-      setTimeout(() => {
-        fullscreenLoading.value = false;
-      }, 2000);
+      if (paymentResult.value === true) {
+        emit("close");
+      } else {
+        next();
+      }
     };
 
     return {
@@ -87,6 +102,7 @@ export default defineComponent({
       handlePurchaseSummaryStep,
       fullscreenLoading,
       handlePurchaseResult,
+      paymentResult,
     };
   },
 });

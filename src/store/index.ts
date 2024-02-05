@@ -20,6 +20,9 @@ export default createStore({
     setProducts(state: State, products: ProductModel[]) {
       state.products = products;
     },
+    clearCart(state: State) {
+      state.cart = [];
+    },
     addProductToCart(state: State, product: ProductModel) {
       const productExists = state.cart.some((p) => p.id === product.id);
       if (!productExists) {
@@ -46,6 +49,9 @@ export default createStore({
       } else {
         commit("removeProductFromCart", cartData.product.id);
       }
+    },
+    clearCart({ commit }) {
+      commit("clearCart");
     },
   },
   modules: {},

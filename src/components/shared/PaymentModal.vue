@@ -29,7 +29,7 @@
           ></button>
         </div>
         <div class="modal-body">
-          <PaymentStepper />
+          <PaymentStepper @close="handleClose" />
         </div>
         <div class="modal-footer">
           <button
@@ -53,6 +53,19 @@ export default defineComponent({
   name: "BuyCarrtView",
   components: {
     PaymentStepper,
+  },
+  methods: {
+    handleClose() {
+      // Usando la API de Bootstrap para cerrar el modal
+      const modalElement = document.getElementById("staticBackdrop");
+      if (modalElement) {
+        // eslint-disable-next-line no-undef
+        const modalInstance = bootstrap.Modal.getInstance(modalElement); // Obtiene la instancia del modal
+        if (modalInstance) {
+          modalInstance.hide(); // Cierra el modal
+        }
+      }
+    },
   },
 });
 </script>
