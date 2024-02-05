@@ -40,26 +40,23 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PaymentStepper from "./PaymentStepper.vue";
-// import { Modal } from 'bootstrap';
+import { useStore } from "vuex";
 
 export default defineComponent({
-  name: "BuyCarrtView",
+  name: "BuyCartView",
   components: {
     PaymentStepper,
   },
-  methods: {
-    handleClose() {
-      // const modalEl = document.getElementById('staticBackdrop');
-      // if (modalEl) {
-      //   const modalInstance = Modal.getInstance(modalEl);
-      //   if (modalInstance) {
-      //     modalInstance.hide();
-      //   } else {
-      //     const modal = new Modal(modalEl);
-      //     modal.hide();
-      //   }
-      // }
-    },
+  setup() {
+    const store = useStore();
+    const handleClose = () => {
+      const closeButton = document.querySelector(
+        "#staticBackdrop .btn-close"
+      ) as HTMLElement;
+      store.dispatch("clearCart");
+      if (closeButton) closeButton.click();
+    };
+    return { handleClose };
   },
 });
 </script>

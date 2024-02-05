@@ -3,6 +3,7 @@
     <el-steps :active="active" finish-status="success">
       <el-step title="ingresar medio de pago"></el-step>
       <el-step title="Verificar compra"></el-step>
+      <el-step title="Resultado compra"></el-step>
     </el-steps>
 
     <transition name="fade" mode="out-in">
@@ -32,12 +33,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import CardForm from "./CardForm.vue";
 import PurchaseSummary from "./PurchaseSummary.vue";
 import PurchaseResult from "./PurchaseResult.vue";
 import { ElLoading } from "element-plus";
-import { useStore } from "vuex";
 
 export default defineComponent({
   components: {
@@ -47,10 +47,9 @@ export default defineComponent({
     PurchaseResult,
   },
   setup(prop, { emit }) {
-    const store = useStore();
     const active = ref(0);
-    let paymentResult = ref(false);
     const fullscreenLoading = ref(false);
+    const paymentResult = ref(false);
 
     let showNextButton = false;
     let cardData: any;
@@ -61,24 +60,22 @@ export default defineComponent({
 
     const handleCardStep = (data: any) => {
       cardData = data.cardData;
-      showNextButton = true;
+      if (cardData && cardData.toString().endsWith("1")) {
+        paymentResult.value = false;
+      } else {
+        paymentResult.value = true;
+      }
       next();
     };
 
     const handlePurchaseSummaryStep = async (data: any) => {
       try {
-        paymentResult.value = await new Promise((resolve, reject) => {
+        fullscreenLoading.value = true;
+        await new Promise((resolve, reject) => {
           setTimeout(() => {
-            if (cardData && cardData.endsWith("1")) {
-              reject(false);
-            } else {
-              store.dispatch("clearCart");
-              resolve(true);
-            }
+            resolve(true);
           }, 2000);
         });
-      } catch (error) {
-        paymentResult.value = false;
       } finally {
         fullscreenLoading.value = false;
         next();
