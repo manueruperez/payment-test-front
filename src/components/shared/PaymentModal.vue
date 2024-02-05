@@ -28,7 +28,9 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">...</div>
+        <div class="modal-body">
+          <PaymentStepper />
+        </div>
         <div class="modal-footer">
           <button
             type="button"
@@ -43,3 +45,14 @@
     </div>
   </div>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import PaymentStepper from "./PaymentStepper.vue";
+
+export default defineComponent({
+  name: "BuyCarrtView",
+  components: {
+    PaymentStepper,
+  },
+});
+</script>

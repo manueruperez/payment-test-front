@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <PaymenModal />
     <ProductList :productListData="products" />
   </div>
 </template>
@@ -8,9 +9,11 @@
 import { Options, Vue } from "vue-class-component";
 import { useStore } from "vuex";
 import ProductList from "@/components/shared/ProductList.vue";
+import PaymenModal from "@/components/shared/PaymentStepper.vue";
 @Options({
   components: {
     ProductList,
+    PaymenModal,
   },
 })
 export default class HomeView extends Vue {
