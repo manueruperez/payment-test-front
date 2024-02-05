@@ -12,15 +12,15 @@
           class="mt-5 step-content"
           v-if="active === 0"
         />
-        <PurchaseSummary class="mt-5 step-content" v-if="active === 1" />
+        <PurchaseSummary
+          :cardData="cardData"
+          @purchase-validation="handlePurchaseSummaryStep"
+          class="mt-5 step-content"
+          v-if="active === 1"
+        />
       </div>
     </transition>
-    <button
-      v-if="showNextButton"
-      type="button"
-      class="btn btn-primary mt-3"
-      @click="next"
-    >
+    <button type="button" class="btn btn-primary mt-3" @click="next">
       Continuar
     </button>
   </div>
@@ -38,21 +38,31 @@ export default defineComponent({
   },
   setup() {
     const active = ref(0);
-    const showNextButton = false;
+    let showNextButton = false;
+    let cardData: any;
     const next = () => {
       if (active.value >= 2) active.value = 0;
       else active.value++;
     };
+
+    const handleCardStep = (data: any) => {
+      cardData = data.cardData;
+      showNextButton = true;
+      next();
+    };
+
+    const handlePurchaseSummaryStep = (data: any) => {
+      next();
+    };
+
     return {
       active,
       next,
       showNextButton,
+      handleCardStep,
+      cardData,
+      handlePurchaseSummaryStep,
     };
-  },
-  methods: {
-    handleCardStep(data: any) {
-      console.log(data);
-    },
   },
 });
 </script>
